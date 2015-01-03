@@ -32,10 +32,10 @@ See http://nim-lang.org"
             ;; qualified references to local variables resolve correctly
             source-original)
   :error-patterns
-  ((error line-start (file-name) ?\( line ", "
-          column ?\) " Error:" (message) line-end)
-   (warning line-start (file-name) ?\( line ", "
-            column ?\) (or " Hint:" " Warning:") (message) line-end))
+  ((error line-start (file-name) "(" line ", "
+          column ") Error:" (message) line-end)
+   (warning line-start (file-name) "(" line ", "
+            column ") " (or "Hint:" "Warning:") (message) line-end))
   :modes (nim-mode nimrod-mode))
 
 (add-to-list 'flycheck-checkers 'nim)
