@@ -28,7 +28,9 @@
 
 See http://nim-lang.org"
   :command ("nim" "check"
-            source-inplace)
+            ;; Must use source-original so relative imports and
+            ;; qualified references to local variables resolve correctly
+            source-original)
   :error-patterns
   ((error line-start (file-name) ?\( line ", "
           column ?\) " Error:" (message) line-end)
