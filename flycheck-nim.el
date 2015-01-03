@@ -36,6 +36,9 @@ See http://nim-lang.org"
           column ") Error:" (message) line-end)
    (warning line-start (file-name) "(" line ", "
             column ") " (or "Hint:" "Warning:") (message) line-end))
+  :error-filter
+  (lambda (errors)
+    (flycheck-sanitize-errors (flycheck-increment-error-columns errors)))
   :modes (nim-mode nimrod-mode))
 
 (add-to-list 'flycheck-checkers 'nim)
