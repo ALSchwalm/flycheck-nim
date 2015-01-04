@@ -22,12 +22,61 @@
 ;;; Code:
 
 (require 'flycheck)
+(require 'dash)
+
+(flycheck-def-args-var flycheck-nim-args nim)
+
+(flycheck-def-option-var flycheck-nim-experimental nil nim
+  "Whether to enable experimental features in the nim compiler.
+When non-nil, enables experimental features, via `--experimental'."
+  :type 'boolean
+  :safe #'booleanp)
+
+(flycheck-def-option-var flycheck-nim-hints "on" nim
+  "Whether to enable compiler hints.
+Enables or disables all hints via `--hints'."
+  :type '(choice (const :tag "Off" "off")
+                 (const :tag "On" "on"))
+  :safe #'stringp)
+
+(flycheck-def-option-var flycheck-nim-warnings "on" nim
+  "Whether to enable compiler warnings.
+Enables or disables all warnings via `--warnings'."
+  :type '(choice (const :tag "Off" "off")
+                 (const :tag "On" "on"))
+  :safe #'stringp)
+
+(flycheck-def-option-var flycheck-nim-specific-hints nil nim
+  "Settings for specific hints from the compiler.
+Enables or disables specific hints via `--hint[x]'"
+  :type '(choice (const :tag "No specific hint settings" nil)
+                 (repeat :tag "Specific hint settings"
+                         (group (string :tag "Hint name")
+                                (choice (const :tag "Off" "off")
+                                        (const :tag "On" "on"))))))
+
+(flycheck-def-option-var flycheck-nim-specific-warnings nil nim
+  "Settings for specific warnings from the compiler.
+Enables or disables specific warnings via `--warning[x]'"
+  :type '(choice (const :tag "No specific warning settings" nil)
+                 (repeat :tag "Specific warning settings"
+                         (group (string :tag "Warning name")
+                                (choice (const :tag "Off" "off")
+                                        (const :tag "On" "on"))))))
 
 (flycheck-define-checker nim
-  "A syntax checker for the nim programming language
+  "A syntax checker for the nim programming language.
 
 See http://nim-lang.org"
   :command ("nim" "check"
+            (option-flag "--experimental" flycheck-nim-experimental)
+            (option "--hints:" flycheck-nim-hints concat)
+            (option "--warnings:" flycheck-nim-warnings concat)
+            (eval (--map (format "--hint[%s]:%s" (car it) (cadr it))
+                         flycheck-nim-specific-hints))
+            (eval (--map (format "--warning[%s]:%s" (car it) (cadr it))
+                         flycheck-nim-specific-warnings))
+            (eval flycheck-nim-args)
             ;; Must use source-original so relative imports and
             ;; qualified references to local variables resolve correctly
             source-original)
