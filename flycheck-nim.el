@@ -84,7 +84,11 @@ See http://nim-lang.org"
             source-original)
   :error-patterns
   ((error line-start (file-name) "(" line ", "
-          column ") Error:" (message) line-end)
+          column ") Error:"
+          (message (one-or-more not-newline)
+                   (optional
+                    (and "\nbut expected one of:"
+                         (minimal-match (one-or-more anything)) "\n\n"))))
    (warning line-start (file-name) "(" line ", "
             column ") " (or "Hint:" "Warning:") (message) line-end))
   :error-filter
