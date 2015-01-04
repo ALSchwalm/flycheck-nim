@@ -53,7 +53,8 @@ Enables or disables specific hints via `--hint[x]'"
                  (repeat :tag "Specific hint settings"
                          (group (string :tag "Hint name")
                                 (choice (const :tag "Off" "off")
-                                        (const :tag "On" "on"))))))
+                                        (const :tag "On" "on")))))
+  :safe (lambda (l) (-all? #'flycheck-string-list-p l)))
 
 (flycheck-def-option-var flycheck-nim-specific-warnings nil nim
   "Settings for specific warnings from the compiler.
@@ -62,7 +63,8 @@ Enables or disables specific warnings via `--warning[x]'"
                  (repeat :tag "Specific warning settings"
                          (group (string :tag "Warning name")
                                 (choice (const :tag "Off" "off")
-                                        (const :tag "On" "on"))))))
+                                        (const :tag "On" "on")))))
+  :safe (lambda (l) (-all? #'flycheck-string-list-p l)))
 
 (flycheck-define-checker nim
   "A syntax checker for the nim programming language.
