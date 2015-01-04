@@ -32,6 +32,12 @@ When non-nil, enables experimental features, via `--experimental'."
   :type 'boolean
   :safe #'booleanp)
 
+(flycheck-def-option-var flycheck-nim-threads t nim
+  "Whether to enable threads.
+When non-nil, enables threads, via `--threads:on'."
+  :type 'boolean
+  :safe #'booleanp)
+
 (flycheck-def-option-var flycheck-nim-hints "on" nim
   "Whether to enable compiler hints.
 Enables or disables all hints via `--hints'."
@@ -72,6 +78,7 @@ Enables or disables specific warnings via `--warning[x]'"
 See http://nim-lang.org"
   :command ("nim" "check"
             (option-flag "--experimental" flycheck-nim-experimental)
+            (option-flag "--threads:on" flycheck-nim-threads)
             (option "--hints:" flycheck-nim-hints concat)
             (option "--warnings:" flycheck-nim-warnings concat)
             (eval (--map (format "--hint[%s]:%s" (car it) (cadr it))

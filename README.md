@@ -24,6 +24,7 @@ Flycheck-nim supports several options that allow for more user configurable
 checking. These include:
 
 - `flycheck-nim-experimental`: Enables the `--experimental` flag when non-nil
+- `flycheck-nim-threads`: Sets `--threads:on` flag when non-nil (on by default)
 - `flycheck-nim-hints`: Enable or disable compiler hints
 - `flycheck-nim-warnings`: Enable or disable compiler warnings
 - `flycheck-nim-specific-hints`: Enable or disable specific hints
