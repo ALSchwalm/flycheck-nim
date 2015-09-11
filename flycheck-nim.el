@@ -108,7 +108,7 @@ See http://nim-lang.org"
     (flycheck-sanitize-errors (flycheck-increment-error-columns errors)))
   :modes (nim-mode nimrod-mode))
 
-(eval-after-load 'flycheck '(add-to-list 'flycheck-checkers 'nim))
+(add-to-list 'flycheck-checkers 'nim)
 
 (provide 'flycheck-nim)
 ;;; flycheck-nim.el ends here
