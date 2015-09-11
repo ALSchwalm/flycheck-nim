@@ -1,8 +1,11 @@
 ;;; flycheck-nim.el --- Defines a flycheck syntax checker for nim
 
 ;; Copyright (c) 2015 Adam Schwalm
+
 ;; Author: Adam Schwalm <adamschwalm@gmail.com>
-;; Version: 0.1
+;; Version: 0.2.0
+;; URL: https://github.com/ALSchwalm/flycheck-nim
+;; Package-Requires: ((dash "2.4.0") (flycheck "0.20"))
 
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -18,6 +21,8 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
+
+;; Adds Nim support to flycheck
 
 ;;; Code:
 
@@ -103,7 +108,7 @@ See http://nim-lang.org"
     (flycheck-sanitize-errors (flycheck-increment-error-columns errors)))
   :modes (nim-mode nimrod-mode))
 
-(add-to-list 'flycheck-checkers 'nim)
+(eval-after-load 'flycheck '(add-to-list 'flycheck-checkers 'nim))
 
 (provide 'flycheck-nim)
 ;;; flycheck-nim.el ends here
