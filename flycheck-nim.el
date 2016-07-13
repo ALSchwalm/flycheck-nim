@@ -91,9 +91,9 @@ See http://nim-lang.org"
             (eval (--map (format "--warning[%s]:%s" (car it) (cadr it))
                          flycheck-nim-specific-warnings))
             (eval flycheck-nim-args)
-            ;; Must use source-original so relative imports and
+            ;; Must use source-inplace so relative imports and
             ;; qualified references to local variables resolve correctly
-            source-original)
+            source-inplace)
   :error-patterns
   ((error line-start (file-name) "(" line ", "
           column ") Error:"
