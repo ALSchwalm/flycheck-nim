@@ -107,7 +107,7 @@ See http://nim-lang.org"
   (lambda (errors)
     (flycheck-sanitize-errors (flycheck-increment-error-columns errors)))
   :modes (nim-mode nimrod-mode)
-  :predicate (lambda () (not org-src-mode)))
+  :predicate (lambda () (not (bound-and-true-p org-src-mode))))
 
 (add-to-list 'flycheck-checkers 'nim)
 
